@@ -104,5 +104,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PortMoni.VIEWMODEL\PortMoni.VIEWMODEL.csproj">
+      <Project>{8F070771-9975-41F9-8FD9-FA60E3A3B8C9}</Project>
+      <Name>PortMoni.VIEWMODEL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

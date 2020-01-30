@@ -6,8 +6,43 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:PortMoni"
         mc:Ignorable="d"
-        Title="PortMoni" Height="450" Width="800">
+        Title="Portfolio Monitoring" Height="450" Width="800" WindowTransitionsEnabled="False" WindowTitleBrush="#121212" NonActiveWindowTitleBrush="#757575">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Teste">
+                <MenuItem Header="Ajuda"/>
+            </MenuItem>
+            <MenuItem Header="Teste2">
+                <MenuItem Header="Ajuda"/>
+            </MenuItem>
+        </Menu>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Carteira"/>
+            <TabItem Header="Produtos" />
+            <TabItem Header="Rentabilidade"/>
+        </TabControl>
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding ShareList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="90">
+                        <Grid Height="1" Background="LightGray" VerticalAlignment="Top" Margin="0 -1 0 0"/>
+                        <Grid Background="LightBlue" Width="4" Margin="10 15 0 15" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding}" FontSize="16" Foreground="LightBlue" FontWeight="Bold" HorizontalAlignment="Left" Margin="18 10 0 0"/>
+                        <TextBlock Text="SALDO ATUAL" FontSize="10" Foreground="LightGray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="18 0 0 35"/>
+                        <TextBlock Text="R$ 1.254,42" FontSize="16" Foreground="LightBlue" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="18 0 0 13"/>
+                        <TextBlock Text="COTAÇÃO ATUAL" FontSize="10" Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 35"/>
+                        <TextBlock Text="R$ 20,45" FontSize="16" Foreground="LightBlue" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 13"/>
+                        <TextBlock Text="RENTABILIDADE" FontSize="10" Foreground="LightGray" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 35"/>
+                        <TextBlock Text="51,63%" FontSize="16" Foreground="LightBlue" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 13"/>
+                        <Grid Height="1" Background="LightGray" VerticalAlignment="Bottom"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Controls:MetroWindow>
