@@ -1,13 +1,15 @@
-﻿using PortMoni.MODEL;
+﻿using PortMoni.CAT;
+using PortMoni.MODEL;
 using PortMoni.SERVICES;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PortMoni.VIEWMODEL
 {
-    public class MainWindowVM
+    public class MainWindowVM : ObjectNotification
     {
-        public ObservableCollection<Share> ShareList { get; set; }
+        ObservableCollection<Share> _shareList; public ObservableCollection<Share> ShareList { get { return _shareList; } set { _shareList = value; OnPropertyChanged(); } }
 
         public MainWindowVM()
         {
@@ -27,8 +29,29 @@ namespace PortMoni.VIEWMODEL
             };
             ShareList.Add(flry4);
 
-            string response = QuoteServices.GetShareListQuoteString(ShareList.ToList());
-            var teste = Util.Deserialize<ComportamentoPapeis>(response);
+            UpdateShareListQuote();
+        }
+
+        void UpdateShareListQuote()
+        {
+            List<Papel> currentQuoteList = GetCurrentShareListInfo();
+
+            foreach (Papel papel in currentQuoteList)
+            {
+                Share share = ShareList.FirstOrDefault(o => o.Code == papel.Codigo);
+
+                if (share != null && double.TryParse(papel.Ultimo, out double currentQuote))
+                {
+                    share.CurrentQuote = currentQuote;
+                }
+            }
+        }
+
+        List<Papel> GetCurrentShareListInfo()
+        {
+            string xmlCurrentQuoteResponse = QuoteServices.GetShareListQuoteString(ShareList.ToList());
+            List<Papel> currentQuoteList = Util.Deserialize<List<Papel>>(xmlCurrentQuoteResponse, "ComportamentoPapeis");
+            return currentQuoteList;
         }
     }
 }

@@ -5,11 +5,11 @@ namespace PortMoni.SERVICES
 {
     public class Util
     {
-        public static T Deserialize<T>(string input) where T : class
+        public static T Deserialize<T>(string xmlString, string xmlRootAttribute) where T : class
         {
-            XmlSerializer ser = new XmlSerializer(typeof(T));
+            XmlSerializer ser = new XmlSerializer(typeof(T), new XmlRootAttribute(xmlRootAttribute));
 
-            using (StringReader sr = new StringReader(input))
+            using (StringReader sr = new StringReader(xmlString))
             {
                 return (T)ser.Deserialize(sr);
             }

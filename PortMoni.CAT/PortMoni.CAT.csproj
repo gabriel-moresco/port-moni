@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8F070771-9975-41F9-8FD9-FA60E3A3B8C9}</ProjectGuid>
+    <ProjectGuid>{CF63095D-B20E-4BF4-BDFE-7447B5063F8C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PortMoni.VIEWMODEL</RootNamespace>
-    <AssemblyName>PortMoni.VIEWMODEL</AssemblyName>
+    <RootNamespace>PortMoni.CAT</RootNamespace>
+    <AssemblyName>PortMoni.CAT</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,22 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindowVM.cs" />
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="ObjectNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PortMoni.CAT\PortMoni.CAT.csproj">
-      <Project>{CF63095D-B20E-4BF4-BDFE-7447B5063F8C}</Project>
-      <Name>PortMoni.CAT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PortMoni.MODEL\PortMoni.MODEL.csproj">
-      <Project>{AE719600-07E9-413A-B706-384A06C7B026}</Project>
-      <Name>PortMoni.MODEL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PortMoni.SERVICES\PortMoni.SERVICES.csproj">
-      <Project>{6EAEBA0B-FAB4-43FE-9FEF-E990AD0FD0E0}</Project>
-      <Name>PortMoni.SERVICES</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
