@@ -1,38 +1,59 @@
 ﻿using PortMoni.CAT;
 using PortMoni.MODEL;
 using PortMoni.SERVICES;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Windows.Input;
 
 namespace PortMoni.VIEWMODEL
 {
     public class MainWindowVM : ObjectNotification
     {
         ObservableCollection<Share> _shareList; public ObservableCollection<Share> ShareList { get { return _shareList; } set { _shareList = value; OnPropertyChanged(); } }
+        bool _progressRingIsVisible; public bool ProgressRingIsVisible { get { return _progressRingIsVisible; } set { _progressRingIsVisible = value; OnPropertyChanged(); } }
+
+        public ICommand LoadInfoCommand => new DelegateCommand(LoadInfo);
 
         public MainWindowVM()
         {
             ShareList = new ObservableCollection<Share>();
-
-            Share wege3 = new Share
-            {
-                Code = "WEGE3",
-                Description = "WEG Equipamentos Elétricos S/A",
-            };
-            ShareList.Add(wege3);
-
-            Share flry4 = new Share
-            {
-                Code = "FLRY3",
-                Description = "Fleury",
-            };
-            ShareList.Add(flry4);
-
-            UpdateShareListQuote();
         }
 
-        void UpdateShareListQuote()
+        void LoadInfo(object parameter)
+        {
+            //await Task.Run(() =>
+            //{
+            //ProgressRingIsVisible = true;
+            PopulateShareListFromTextFile();
+            UpdateShareListQuoteAndDescription();
+            //ProgressRingIsVisible = false;
+            //});
+        }
+
+        void PopulateShareListFromTextFile()
+        {
+            string shareListString = string.Empty;
+
+            using (StreamReader reader = new StreamReader(Constants.SharesListTextPath))
+            {
+                shareListString = reader.ReadToEnd();
+            }
+
+            string[] shareListArray = shareListString.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string shareString in shareListArray)
+            {
+                ShareList.Add(new Share
+                {
+                    Code = shareString
+                });
+            }
+        }
+
+        void UpdateShareListQuoteAndDescription()
         {
             List<Papel> currentQuoteList = GetCurrentShareListInfo();
 
@@ -43,6 +64,7 @@ namespace PortMoni.VIEWMODEL
                 if (share != null && double.TryParse(papel.Ultimo, out double currentQuote))
                 {
                     share.CurrentQuote = currentQuote;
+                    share.Description = papel.Nome;
                 }
             }
         }

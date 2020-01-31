@@ -1,10 +1,12 @@
-﻿namespace PortMoni.MODEL
+﻿using PortMoni.CAT;
+
+namespace PortMoni.MODEL
 {
-    public class Share
+    public class Share : ObjectNotification
     {
-        public string Code { get; set; }
-        public string Description { get; set; }
-        public double CurrentQuote { get; set; }
+        string _code; public string Code { get { return _code; } set { _code = value; OnPropertyChanged(); } }
+        string _description; public string Description { get { return _description; } set { _description = value; OnPropertyChanged(); } }
+        double _currentQuote; public double CurrentQuote { get { return _currentQuote; } set { _currentQuote = value; OnPropertyChanged(); } }
 
         public override string ToString()
         {

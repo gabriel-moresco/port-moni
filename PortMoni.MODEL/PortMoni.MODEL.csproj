@@ -47,5 +47,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Share.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PortMoni.CAT\PortMoni.CAT.csproj">
+      <Project>{CF63095D-B20E-4BF4-BDFE-7447B5063F8C}</Project>
+      <Name>PortMoni.CAT</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
