@@ -10,14 +10,14 @@ using System.Windows.Input;
 
 namespace PortMoni.VIEWMODEL
 {
-    public class MainWindowVM : ObjectNotification
+    public class MainViewModel : ObjectNotification
     {
         ObservableCollection<Share> _shareList; public ObservableCollection<Share> ShareList { get { return _shareList; } set { _shareList = value; OnPropertyChanged(); } }
         bool _progressRingIsVisible; public bool ProgressRingIsVisible { get { return _progressRingIsVisible; } set { _progressRingIsVisible = value; OnPropertyChanged(); } }
 
         public ICommand LoadInfoCommand => new DelegateCommand(LoadInfo);
 
-        public MainWindowVM()
+        public MainViewModel()
         {
             ShareList = new ObservableCollection<Share>();
         }
