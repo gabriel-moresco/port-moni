@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortMoni.SERVICES", "PortMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortMoni.CAT", "PortMoni.CAT\PortMoni.CAT.csproj", "{CF63095D-B20E-4BF4-BDFE-7447B5063F8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortMoni.UTIL", "PortMoni.UTIL\PortMoni.UTIL.csproj", "{FA2D5A85-69A3-4853-B787-C2433213D9D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{CF63095D-B20E-4BF4-BDFE-7447B5063F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF63095D-B20E-4BF4-BDFE-7447B5063F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF63095D-B20E-4BF4-BDFE-7447B5063F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA2D5A85-69A3-4853-B787-C2433213D9D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA2D5A85-69A3-4853-B787-C2433213D9D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA2D5A85-69A3-4853-B787-C2433213D9D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA2D5A85-69A3-4853-B787-C2433213D9D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

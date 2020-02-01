@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace PortMoni.CAT
+namespace PortMoni.UTIL
 {
     public static class ExtensionMethods
     {
