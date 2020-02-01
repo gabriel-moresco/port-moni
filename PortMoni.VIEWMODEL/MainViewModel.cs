@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
+using PortMoni.UTIL;
 
 namespace PortMoni.VIEWMODEL
 {
@@ -15,11 +16,12 @@ namespace PortMoni.VIEWMODEL
         ObservableCollection<Share> _shareList; public ObservableCollection<Share> ShareList { get { return _shareList; } set { _shareList = value; OnPropertyChanged(); } }
         bool _progressRingIsVisible; public bool ProgressRingIsVisible { get { return _progressRingIsVisible; } set { _progressRingIsVisible = value; OnPropertyChanged(); } }
 
-        public ICommand LoadInfoCommand => new DelegateCommand(LoadInfo);
+        public ICommand LoadInfoCommand { get; }
 
         public MainViewModel()
         {
             ShareList = new ObservableCollection<Share>();
+            LoadInfoCommand = new DelegateCommand(LoadInfo);
         }
 
         void LoadInfo(object parameter)
