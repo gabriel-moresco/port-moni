@@ -6,6 +6,7 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
         Title="Portfolio Monitoring" Height="768" Width="1280" WindowTransitionsEnabled="False" WindowTitleBrush="#121212" NonActiveWindowTitleBrush="#757575" Icon="../Images/logo.ico"
                       WindowStartupLocation="CenterScreen">
     <Window.Resources>
