@@ -48,9 +48,9 @@
     <Compile Include="Share.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PortMoni.CAT\PortMoni.CAT.csproj">
-      <Project>{CF63095D-B20E-4BF4-BDFE-7447B5063F8C}</Project>
-      <Name>PortMoni.CAT</Name>
+    <ProjectReference Include="..\PortMoni.MVVM\PortMoni.MVVM.csproj">
+      <Project>{C98292A3-C370-4898-9C45-708B951605D4}</Project>
+      <Name>PortMoni.MVVM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
