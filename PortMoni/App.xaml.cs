@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using PortMoni.UTIL;
 
 namespace PortMoni
 {
@@ -13,7 +14,7 @@ namespace PortMoni
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Fatal Error: " + ex.Message, "Ops!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxCustom.Show("Ops!", "Fatal Error:\n" + ex.Message, ex);
             }
 
             base.OnStartup(e);

@@ -1,0 +1,50 @@
+﻿<Window x:Class="PortMoni.UTIL.Views.ExceptionDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PortMoni.UTIL.Views"
+        mc:Ignorable="d"
+        Title="Exception Details Window" Height="450" Width="800" MinWidth="500" MinHeight="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseDown="Window_MouseDown">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#4B4B4B"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="1" BorderBrush="Transparent" Background="{TemplateBinding Background}" CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="LightGray"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#4B4B4B">
+        <DockPanel Margin="10 7 10 10">
+            <TextBlock DockPanel.Dock="Top" Foreground="LightGray" FontSize="20" FontWeight="Bold" Text="Detalhes da Exceção:"/>
+            <Border BorderBrush="LightGray" BorderThickness="1" Margin="0 5 0 0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock x:Name="txt_Content" TextWrapping="Wrap" Foreground="LightGray" FontSize="16"/>
+                </ScrollViewer>
+            </Border>
+        </DockPanel>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Right" Content="X" Width="30" Height="30" Margin="0 5 9 0" Padding="0" Click="Button_Click"/>
+    </Grid>
+</Window>

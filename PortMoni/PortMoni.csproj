@@ -108,6 +108,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PortMoni.UTIL\PortMoni.UTIL.csproj">
+      <Project>{670AA09E-2B6C-440C-8B71-28218869C2F6}</Project>
+      <Name>PortMoni.UTIL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PortMoni.VIEWMODEL\PortMoni.VIEWMODEL.csproj">
       <Project>{8F070771-9975-41F9-8FD9-FA60E3A3B8C9}</Project>
       <Name>PortMoni.VIEWMODEL</Name>

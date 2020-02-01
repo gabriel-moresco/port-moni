@@ -59,7 +59,7 @@
       <Name>PortMoni.SERVICES</Name>
     </ProjectReference>
     <ProjectReference Include="..\PortMoni.UTIL\PortMoni.UTIL.csproj">
-      <Project>{FA2D5A85-69A3-4853-B787-C2433213D9D4}</Project>
+      <Project>{670AA09E-2B6C-440C-8B71-28218869C2F6}</Project>
       <Name>PortMoni.UTIL</Name>
     </ProjectReference>
   </ItemGroup>
