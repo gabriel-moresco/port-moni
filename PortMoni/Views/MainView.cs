@@ -1,9 +1,8 @@
-﻿using MahApps.Metro.Controls;
-using PortMoni.VIEWMODEL;
+﻿using System.Windows.Controls;
 
 namespace PortMoni.Views
 {
-    public partial class MainView : MetroWindow
+    public partial class MainView : UserControl
     {
         public MainView()
         {

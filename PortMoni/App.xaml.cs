@@ -10,7 +10,7 @@ namespace PortMoni
         {
             try
             {
-                new Views.MainView().ShowDialog();
+                new Views.ShellView().ShowDialog();
             }
             catch (Exception ex)
             {
