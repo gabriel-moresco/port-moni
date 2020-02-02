@@ -16,13 +16,11 @@ namespace PortMoni.VIEWMODEL
         ObservableCollection<Share> _shareList; public ObservableCollection<Share> ShareList { get { return _shareList; } set { _shareList = value; OnPropertyChanged(); } }
         bool _progressRingIsVisible; public bool ProgressRingIsVisible { get { return _progressRingIsVisible; } set { _progressRingIsVisible = value; OnPropertyChanged(); } }
 
-        public ICommand LoadInfoCommand { get; }
+        public ICommand LoadInfoCommand => new DelegateCommand(LoadInfo);
 
         public MainViewModel()
         {
             ShareList = new ObservableCollection<Share>();
-
-            LoadInfoCommand = new DelegateCommand(LoadInfo);
         }
 
         void LoadInfo(object parameter)
@@ -40,7 +38,7 @@ namespace PortMoni.VIEWMODEL
         {
             string shareListString = string.Empty;
 
-            using (StreamReader reader = new StreamReader(Constants.SharesListTextPath))
+            using (StreamReader reader = new StreamReader(@"..\..\..\PortMoni.UTIL\shares.txt"))
             {
                 shareListString = reader.ReadToEnd();
             }
@@ -75,7 +73,7 @@ namespace PortMoni.VIEWMODEL
         List<Papel> GetCurrentShareListInfo()
         {
             string xmlCurrentQuoteResponse = QuoteServices.GetShareListQuoteString(ShareList.ToList());
-            List<Papel> currentQuoteList = Util.Deserialize<List<Papel>>(xmlCurrentQuoteResponse, "ComportamentoPapeis");
+            List<Papel> currentQuoteList = Util.DeserializeXml<List<Papel>>(xmlCurrentQuoteResponse, "ComportamentoPapeis");
             return currentQuoteList;
         }
     }

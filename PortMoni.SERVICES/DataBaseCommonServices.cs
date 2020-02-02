@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using PortMoni.DATA;
-using PortMoni.MODEL;
 using System.Collections.Generic;
 
 namespace PortMoni.SERVICES
@@ -18,6 +17,13 @@ namespace PortMoni.SERVICES
         {
             IMongoCollection<T> collection = DataBaseConnection.Instance.DataBase.GetCollection<T>(table);
             collection.InsertOne(record);
+        }
+
+        internal static T GetRecordByFilter<T>(string table, string fieldToFilter, string filterValue)
+        {
+            IMongoCollection<T> collection = DataBaseConnection.Instance.DataBase.GetCollection<T>(table);
+            FilterDefinition<T> filter = Builders<T>.Filter.Eq(fieldToFilter, filterValue);
+            return collection.Find(filter).FirstOrDefault();
         }
     }
 }

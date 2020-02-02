@@ -12,25 +12,29 @@ namespace PortMoni.VIEWMODEL
     {
         string _fullName; public string FullName { get { return _fullName; } set { _fullName = value; OnPropertyChanged(); } }
         string _email; public string Email { get { return _email; } set { _email = value; OnPropertyChanged(); } }
-        string _userName; public string UserName { get { return _userName; } set { _userName = value; OnPropertyChanged(); } }
+        string _userName; public string UserName { get { return _userName; } set { _userName = value.ToLowerInvariant(); OnPropertyChanged(); } }
+        bool _createNewUserIsEnabled; public bool CreateNewUserIsEnabled { get { return _createNewUserIsEnabled; } set { _createNewUserIsEnabled = value; OnPropertyChanged(); } }
 
-        public ICommand CreateNewUserCommand { get; set; }
-        public ICommand BackToLoginViewCommand { get; set; }
-
-        public RegisterUserViewModel()
-        {
-            CreateNewUserCommand = new DelegateCommand(CreateNewUser, CanCreateNewUser);
-            BackToLoginViewCommand = new DelegateCommand(BackToLoginView);
-        }
+        public ICommand CreateNewUserCommand => new DelegateCommand(CreateNewUser);
+        public ICommand BackToLoginViewCommand => new DelegateCommand(BackToLoginView);
+        public ICommand TextChangedCommand => new DelegateCommand(CanCreateNewUser);
 
         void BackToLoginView(object parameter)
         {
+            //TODO IMPLEMENTAR
         }
 
-        bool CanCreateNewUser()
+        void SwitchToMainView()
         {
-            return !string.IsNullOrWhiteSpace(FullName) && !string.IsNullOrWhiteSpace(Email)
-                && !string.IsNullOrWhiteSpace(UserName) && UserName.Length >= 6;
+            //TODO IMPLEMENTAR
+        }
+
+        void CanCreateNewUser(object parameter)
+        {
+            string password = (parameter as PasswordBox).Password;
+
+            CreateNewUserIsEnabled = !string.IsNullOrWhiteSpace(FullName) && !string.IsNullOrWhiteSpace(Email)
+                && !string.IsNullOrWhiteSpace(UserName) && UserName.Length >= 6 && password.Length >= 6;
         }
 
         void CreateNewUser(object parameter)
@@ -39,37 +43,58 @@ namespace PortMoni.VIEWMODEL
             {
                 PasswordBox passwordBox = parameter as PasswordBox;
 
-                if (ValidatePassword(passwordBox.Password) && !CheckIfUserExist(UserName, Email))
+                if (ValidPassword(passwordBox.Password))
                 {
-                    User newUser = new User(FullName, Email, UserName, passwordBox.Password);
+                    if (!CheckIfUserNameExist(UserName))
+                    {
+                        if (!CheckIfEmailExist(Email))
+                        {
+                            User newUser = new User(FullName, Email, UserName, passwordBox.Password);
 
-                    DataBaseUserServices.InserNewUser(newUser);
+                            DataBaseUserServices.InserNewUser(newUser);
 
-                    MessageBoxCustom.Show("Usuário Criado!", "Usuário criado com sucesso.", MessageBoxCustom.Images.Checked, MessageBoxCustom.ButtonOptions.Ok);
+                            MessageBoxCustom.Show("Usuário Criado!", "Usuário criado com sucesso.", MessageBoxCustom.Images.Checked, MessageBoxCustom.ButtonOptions.Ok);
+
+                            SwitchToMainView();
+                        }
+                        else
+                        {
+                            throw new Exception("E-mail já está sendo utilizado.");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Úsuário já existe.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("A senha deve conter no mínimo 6 caractéres.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBoxCustom.Show("Ops!", "Erro ao cadastrar novo usuário:\n", ex);
+                MessageBoxCustom.Show("Ops!", "Erro ao cadastrar novo usuário:\n" + ex.Message, MessageBoxCustom.Images.Info, MessageBoxCustom.ButtonOptions.Ok);
             }
         }
 
-        bool CheckIfUserExist(string userName, string email)
+        bool CheckIfUserNameExist(string userName)
         {
-            User userByEmail = DataBaseUserServices.GetUserByEmail(email);
-            User userByUserName = DataBaseUserServices.GetUserByUserName(userName);
-
-            return userByEmail != null || userByUserName != null;
+            return DataBaseUserServices.GetUserByUserName(userName) != null;
         }
 
-        bool ValidatePassword(string password)
+        bool CheckIfEmailExist(string email)
+        {
+            return DataBaseUserServices.GetUserByEmail(email) != null;
+        }
+
+        bool ValidPassword(string password)
         {
             bool validation = true;
 
             if (password.Length < 6)
             {
                 validation = false;
-                MessageBoxCustom.Show("Ops!", "A senha deve conter no mínimo 6 caractéres.", MessageBoxCustom.Images.None, MessageBoxCustom.ButtonOptions.Ok);
             }
 
             return validation;

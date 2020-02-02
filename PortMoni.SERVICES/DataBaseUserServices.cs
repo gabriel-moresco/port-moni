@@ -1,6 +1,4 @@
-﻿using MongoDB.Driver;
-using PortMoni.DATA;
-using PortMoni.MODEL;
+﻿using PortMoni.MODEL;
 using System.Collections.Generic;
 
 namespace PortMoni.SERVICES
@@ -14,23 +12,17 @@ namespace PortMoni.SERVICES
 
         public static User GetUserByUserName(string userName)
         {
-            var usersTable = DataBaseConnection.Instance.DataBase.GetCollection<User>("users");
-            var filter = Builders<User>.Filter.Eq("UserName", userName);
-
-            return usersTable.Find(filter).FirstOrDefault();
+            return DataBaseCommonServices.GetRecordByFilter<User>("users", "UserName", userName);
         }
 
         public static User GetUserByEmail(string email)
         {
-            var usersTable = DataBaseConnection.Instance.DataBase.GetCollection<User>("users");
-            var filter = Builders<User>.Filter.Eq("Email", email);
-
-            return usersTable.Find(filter).FirstOrDefault();
+            return DataBaseCommonServices.GetRecordByFilter<User>("users", "Email", email);
         }
 
         public static void InserNewUser(User user)
         {
-            DataBaseCommonServices.InsertRecord<User>("users", user);
+            DataBaseCommonServices.InsertRecord("users", user);
         }
     }
 }
