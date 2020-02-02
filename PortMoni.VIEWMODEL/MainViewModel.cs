@@ -21,6 +21,7 @@ namespace PortMoni.VIEWMODEL
         public MainViewModel()
         {
             ShareList = new ObservableCollection<Share>();
+
             LoadInfoCommand = new DelegateCommand(LoadInfo);
         }
 

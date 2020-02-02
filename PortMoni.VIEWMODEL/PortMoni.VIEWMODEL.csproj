@@ -46,6 +46,10 @@
     <Compile Include="ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PortMoni.DATA\PortMoni.DATA.csproj">
+      <Project>{F6EADA64-44C9-4152-A27F-D87A5FF698A6}</Project>
+      <Name>PortMoni.DATA</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PortMoni.MODEL\PortMoni.MODEL.csproj">
       <Project>{AE719600-07E9-413A-B706-384A06C7B026}</Project>
       <Name>PortMoni.MODEL</Name>
