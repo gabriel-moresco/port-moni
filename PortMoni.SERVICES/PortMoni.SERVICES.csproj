@@ -75,7 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBaseServices.cs" />
+    <Compile Include="DataBaseCommonServices.cs" />
+    <Compile Include="DataBaseUserServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuoteServices.cs" />
   </ItemGroup>

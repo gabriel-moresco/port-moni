@@ -14,7 +14,7 @@ namespace PortMoni
             }
             catch (Exception ex)
             {
-                MessageBoxCustom.Show("Ops!", "Fatal Error:\n" + ex.Message, ex);
+                MessageBoxCustom.Show("Ops!", "Fatal Error:\n", ex);
             }
 
             base.OnStartup(e);
