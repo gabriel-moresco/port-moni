@@ -8,14 +8,10 @@
              xmlns:local="clr-namespace:PortMoni.Views"
              mc:Ignorable="d" 
              DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}"
-             d:DesignHeight="1000" d:DesignWidth="1000" FocusManager.FocusedElement="{Binding ElementName=UserTextBox}">
+             d:DesignWidth="1000" d:DesignHeight="1000" FocusManager.FocusedElement="{Binding ElementName=UserTextBox}">
     <Grid>
-        <Border CornerRadius="10" Background="#424242" Height="460" Width="350">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="80"/>
-                </Grid.RowDefinitions>
+        <Border CornerRadius="10" Background="#424242" Height="500" Width="350">
+            <StackPanel>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30"/>
@@ -25,34 +21,34 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80"/>
                         <RowDefinition Height="200"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="50"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.ColumnSpan="3" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 20 0 0">
-                    PORTFOLIO MONITORING
+                        PORTFOLIO MONITORING
                     </TextBlock>
                     <Image Grid.Row="1" Grid.ColumnSpan="3" Source="../Images/logo.ico"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <iconPacks:PackIconMaterial Kind="Account" Height="30" Width="30"/>
-                    </TextBlock>
                     <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <iconPacks:PackIconModern Kind="InterfacePassword" Height="40" Width="40"/>
+                        <iconPacks:PackIconMaterial Kind="Account" Height="30" Width="30"/>
                     </TextBlock>
-                    <TextBox x:Name="UserTextBox" Grid.Row="2" Grid.Column="2" Width="200" Height="40" HorizontalAlignment="Left" VerticalContentAlignment="Center"
+                    <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <iconPacks:PackIconModern Kind="InterfacePassword" Height="40" Width="40"/>
+                    </TextBlock>
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold">
+                        Bem vindo novamente!
+                    </TextBlock>
+                    <TextBox x:Name="UserTextBox" Grid.Row="3" Grid.Column="2" Width="200" Height="40" HorizontalAlignment="Left" VerticalContentAlignment="Center"
                          ToolTip="Usuário" Controls:TextBoxHelper.Watermark="Usuário" Controls:TextBoxHelper.ClearTextButton="True" FontSize="14"/>
-                    <PasswordBox Grid.Row="3" Grid.Column="2" Width="200" Height="40" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="14"
+                    <PasswordBox Grid.Row="4" Grid.Column="2" Width="200" Height="40" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontSize="14"
                              ToolTip="Senha" Controls:PasswordBoxHelper.CapsLockWarningToolTip="Capslock Ativo"
                              Controls:TextBoxHelper.Watermark="Senha" Controls:TextBoxHelper.ClearTextButton="True"/>
                 </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Height="50" Width="140" Content="Login" FontSize="22" Background="LightBlue"/>
-                    <Button Grid.Column="1" Height="50" Width="140" Content="Cadastrar-se" FontSize="22" Background="IndianRed"/>
-                </Grid>
-            </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <Button Grid.Column="0" Height="50" Width="145" Content="Login" FontSize="22" Background="CornflowerBlue" Margin="0 0 5 0" IsDefault="True"/>
+                    <Button Grid.Column="1" Height="50" Width="145" Content="Cadastrar-se" FontSize="22" Background="#E0E0E0" Margin="5 0 0 0" Command="{Binding OpenRegisterWindowCommand}"/>
+                </StackPanel>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>
