@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using PortMoni.UTIL;
+using System.Threading.Tasks;
 
 namespace PortMoni.VIEWMODEL
 {
@@ -25,6 +26,7 @@ namespace PortMoni.VIEWMODEL
 
         void LoadInfo(object parameter)
         {
+            //TODO INSERIR ASYNC
             //await Task.Run(() =>
             //{
             //ProgressRingIsVisible = true;

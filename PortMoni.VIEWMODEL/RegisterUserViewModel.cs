@@ -49,7 +49,7 @@ namespace PortMoni.VIEWMODEL
                     {
                         if (!CheckIfEmailExist(Email))
                         {
-                            User newUser = new User(FullName, Email, UserName, passwordBox.Password);
+                            User newUser = new User(FullName, Email, UserName, passwordBox.Password, DataBaseWalletServices.GetLasWalletId(UserName));
 
                             DataBaseUserServices.InserNewUser(newUser);
 

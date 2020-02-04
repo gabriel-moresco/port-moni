@@ -14,6 +14,12 @@ namespace PortMoni.VIEWMODEL
             ViewModels = new ObservableCollection<object>();
             ViewModels.Add(new LoginViewModel());
             CurrentViewModel = ViewModels.FirstOrDefault(o => o is LoginViewModel);
+
+            ViewModels.Add(new MainViewModel());
+            CurrentViewModel = ViewModels.FirstOrDefault(o => o is MainViewModel);
+
+            ViewModels.Add(new NewOperationViewModel());
+            CurrentViewModel = ViewModels.FirstOrDefault(o => o is NewOperationViewModel);
         }
     }
 }

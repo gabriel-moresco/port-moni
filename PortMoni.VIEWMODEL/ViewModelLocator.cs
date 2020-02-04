@@ -56,5 +56,18 @@ namespace PortMoni.VIEWMODEL
                 return ShellViewModel.ViewModels.FirstOrDefault(o => o is RegisterUserViewModel) as RegisterUserViewModel;
             }
         }
+
+        public NewOperationViewModel NewOperationViewModel
+        {
+            get
+            {
+                if (!ShellViewModel.ViewModels.Any(o => o is NewOperationViewModel))
+                {
+                    ShellViewModel.ViewModels.Add(new NewOperationViewModel());
+                }
+
+                return ShellViewModel.ViewModels.FirstOrDefault(o => o is NewOperationViewModel) as NewOperationViewModel;
+            }
+        }
     }
 }

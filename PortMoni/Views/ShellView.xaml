@@ -20,6 +20,9 @@
         <DataTemplate DataType="{x:Type viewModels:RegisterUserViewModel}">
             <views:RegisterUserView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:NewOperationViewModel}">
+            <views:NewOperationView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <ContentControl Content="{Binding CurrentViewModel}" IsTabStop="False"/>

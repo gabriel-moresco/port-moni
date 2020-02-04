@@ -5,23 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
-        Height="768" Width="1280">
+        d:DesignWidth="1280" d:DesignHeight="720">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
     </UserControl.Resources>
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="ContentRendered">
+        <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadInfoCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Menu">
                 <MenuItem Header="Menu1"/>
                 <Separator/>
@@ -31,7 +36,14 @@
                 <MenuItem Header="Ajuda"/>
             </MenuItem>
         </Menu>
-        <TabControl Grid.Row="1">
+        <Grid Grid.Row="1" Grid.Column="0" Background="#424242">
+            <StackPanel VerticalAlignment="Center">
+                <Button Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Height="50" Width="50" ToolTip="Adicionar Operação">
+                    <iconPacks:PackIconIonicons Kind="AddiOS" Height="30" Width="30"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <TabControl Grid.Row="1" Grid.Column="1">
             <TabItem Header="Produtos">
                 <ScrollViewer>
                     <ItemsControl ItemsSource="{Binding ShareList}">

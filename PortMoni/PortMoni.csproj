@@ -136,6 +136,9 @@
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NewOperationView.xaml.cs">
+      <DependentUpon>NewOperationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterUserView.xaml.cs">
       <DependentUpon>RegisterUserView.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\NewOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RegisterUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
