@@ -16,17 +16,26 @@ namespace PortMoni.VIEWMODEL
         bool _createNewUserIsEnabled; public bool CreateNewUserIsEnabled { get { return _createNewUserIsEnabled; } set { _createNewUserIsEnabled = value; OnPropertyChanged(); } }
 
         public ICommand CreateNewUserCommand => new DelegateCommand(CreateNewUser);
-        public ICommand BackToLoginViewCommand => new DelegateCommand(BackToLoginView);
+        public ICommand BackToLoginViewCommand => new DelegateCommand(GoToLoginView);
         public ICommand TextChangedCommand => new DelegateCommand(CanCreateNewUser);
 
-        void BackToLoginView(object parameter)
+        Action GoToLoginViewAction;
+        Action<string> GoToMainViewAction;
+
+        public RegisterUserViewModel(Action GoToLoginViewAction, Action<string> GoToMainViewAction)
         {
-            //TODO IMPLEMENTAR
+            this.GoToLoginViewAction = GoToLoginViewAction;
+            this.GoToMainViewAction = GoToMainViewAction;
         }
 
-        void SwitchToMainView()
+        void GoToLoginView(object parameter)
         {
-            //TODO IMPLEMENTAR
+            GoToLoginViewAction();
+        }
+
+        void GoToMainView(string userName)
+        {
+            GoToMainViewAction(userName);
         }
 
         void CanCreateNewUser(object parameter)
@@ -55,7 +64,7 @@ namespace PortMoni.VIEWMODEL
 
                             MessageBoxCustom.Show("Usuário Criado!", "Usuário criado com sucesso.", MessageBoxCustom.Images.Checked, MessageBoxCustom.ButtonOptions.Ok);
 
-                            SwitchToMainView();
+                            GoToMainView(newUser.UserName);
                         }
                         else
                         {

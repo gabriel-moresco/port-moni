@@ -38,7 +38,7 @@
         </Menu>
         <Grid Grid.Row="1" Grid.Column="0" Background="#424242">
             <StackPanel VerticalAlignment="Center">
-                <Button Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Height="50" Width="50" ToolTip="Adicionar Operação">
+                <Button Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Command="{Binding OpenNewOperationViewCommand}" Height="50" Width="50" ToolTip="Adicionar Operação">
                     <iconPacks:PackIconIonicons Kind="AddiOS" Height="30" Width="30"/>
                 </Button>
             </StackPanel>
@@ -70,7 +70,7 @@
             <TabItem Header="Carteira"/>
             <TabItem Header="Rentabilidade"/>
         </TabControl>
-        <Grid Grid.Row="1" Margin="0 40 0 0" Visibility="{Binding ProgressRingIsVisible, Converter={StaticResource boolToVis}, FallbackValue=Hidden}">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0 40 0 0" Visibility="{Binding ProgressRingIsVisible, Converter={StaticResource boolToVis}, FallbackValue=Hidden}">
             <Grid Background="LightGray" Opacity="0.4"/>
             <Controls:ProgressRing Width="200"/>
         </Grid>

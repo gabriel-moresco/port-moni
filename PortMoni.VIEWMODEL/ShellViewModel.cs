@@ -1,25 +1,45 @@
 ﻿using PortMoni.MVVM;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace PortMoni.VIEWMODEL
 {
     public class ShellViewModel : ObjectNotification
     {
-        ObservableCollection<object> _viewModels; public ObservableCollection<object> ViewModels { get { return _viewModels; } set { _viewModels = value; OnPropertyChanged(); } }
         object _currentViewModel; public object CurrentViewModel { get { return _currentViewModel; } set { _currentViewModel = value; OnPropertyChanged(); } }
+
+        public ShellViewModel ThisViewModel { get { return this; } }
+        public MainViewModel MainViewModel { get; set; }
+        public LoginViewModel LoginViewModel { get { return new LoginViewModel(GoToMainView, GoToRegisterView); } }
+        public RegisterUserViewModel RegisterUserViewModel { get { return new RegisterUserViewModel(GoToLoginView, GoToMainView); } }
+        public NewOperationViewModel NewOperationViewModel { get { return new NewOperationViewModel(GoToMainView); } }
 
         public ShellViewModel()
         {
-            ViewModels = new ObservableCollection<object>();
-            ViewModels.Add(new LoginViewModel());
-            CurrentViewModel = ViewModels.FirstOrDefault(o => o is LoginViewModel);
+            CurrentViewModel = LoginViewModel;
+        }
 
-            ViewModels.Add(new MainViewModel());
-            CurrentViewModel = ViewModels.FirstOrDefault(o => o is MainViewModel);
+        public void GoToMainView(string userName)
+        {
+            if (MainViewModel == default || (!string.IsNullOrWhiteSpace(userName) && MainViewModel.LoggedUserName != userName))
+            {
+                MainViewModel = new MainViewModel(userName, GoToNewOperationView);
+            }
 
-            ViewModels.Add(new NewOperationViewModel());
-            CurrentViewModel = ViewModels.FirstOrDefault(o => o is NewOperationViewModel);
+            CurrentViewModel = MainViewModel;
+        }
+
+        public void GoToRegisterView()
+        {
+            CurrentViewModel = RegisterUserViewModel;
+        }
+
+        public void GoToLoginView()
+        {
+            CurrentViewModel = LoginViewModel;
+        }
+
+        public void GoToNewOperationView()
+        {
+            CurrentViewModel = NewOperationViewModel;
         }
     }
 }

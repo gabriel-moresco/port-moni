@@ -23,8 +23,12 @@ namespace PortMoni.SERVICES
                 }
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(requestString);
-                HttpWebResponse httpWebResponse = (HttpWebResponse)request.GetResponse();
-                response = new StreamReader(httpWebResponse.GetResponseStream()).ReadToEnd();
+
+                using (HttpWebResponse httpWebResponse = (HttpWebResponse)request.GetResponse())
+                {
+                    response = new StreamReader(httpWebResponse.GetResponseStream()).ReadToEnd();
+                }
+
             }
             catch (Exception ex)
             {

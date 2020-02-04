@@ -14,14 +14,28 @@ namespace PortMoni.VIEWMODEL
 {
     public class MainViewModel : ObjectNotification
     {
+        bool _quotationsLoaded;
+
+        public string LoggedUserName { get; set; }
         ObservableCollection<Share> _shareList; public ObservableCollection<Share> ShareList { get { return _shareList; } set { _shareList = value; OnPropertyChanged(); } }
         bool _progressRingIsVisible; public bool ProgressRingIsVisible { get { return _progressRingIsVisible; } set { _progressRingIsVisible = value; OnPropertyChanged(); } }
 
         public ICommand LoadInfoCommand => new DelegateCommand(LoadInfo);
+        public ICommand OpenNewOperationViewCommand => new DelegateCommand(GoToNewOperationView);
 
-        public MainViewModel()
+        Action GoToNewOperationViewAction;
+
+        public MainViewModel(string userName, Action GoToNewOperationViewAction)
         {
+            this.GoToNewOperationViewAction = GoToNewOperationViewAction;
+
             ShareList = new ObservableCollection<Share>();
+            LoggedUserName = userName;
+        }
+
+        void GoToNewOperationView(object parameter)
+        {
+            GoToNewOperationViewAction();
         }
 
         void LoadInfo(object parameter)
@@ -30,8 +44,13 @@ namespace PortMoni.VIEWMODEL
             //await Task.Run(() =>
             //{
             //ProgressRingIsVisible = true;
-            PopulateShareListFromTextFile();
-            UpdateShareListQuoteAndDescription();
+            if (!_quotationsLoaded)
+            {
+                PopulateShareListFromTextFile();
+                UpdateShareListQuoteAndDescription();
+                _quotationsLoaded = true;
+            }
+
             //ProgressRingIsVisible = false;
             //});
         }

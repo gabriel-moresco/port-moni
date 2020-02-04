@@ -14,7 +14,14 @@ namespace PortMoni.VIEWMODEL
         double _operationTaxes; public double OperationTaxes { get { return _operationTaxes; } set { _operationTaxes = value; OnPropertyChanged(); } }
 
         public ICommand SaveNewInvestimentCommand => new DelegateCommand(SaveNewInvestment, CanSaveNewInvestment);
-        public ICommand BackCommand => new DelegateCommand(GoToMainView);
+        public ICommand GoToMainViewCommand => new DelegateCommand(GoToMainView);
+
+        Action<string> GoToMainViewAction;
+
+        public NewOperationViewModel(Action<string> GoToMainViewAction)
+        {
+            this.GoToMainViewAction = GoToMainViewAction;
+        }
 
         void SaveNewInvestment(object parameter)
         {
@@ -24,13 +31,12 @@ namespace PortMoni.VIEWMODEL
 
         void GoToMainView(object parameter)
         {
-            //TODO IMPLEMENTAR
-            //throw new NotImplementedException();
+            GoToMainViewAction(null);
         }
 
         bool CanSaveNewInvestment()
         {
-            return (BuyOperationSelected || SellOperationSelected) && ShareCode.Length >= 4 && OperationPrice > 0 && DateTime.TryParse(OperationDate, out DateTime a);
+            return (BuyOperationSelected || SellOperationSelected) && ShareCode?.Length >= 4 && OperationPrice > 0 && DateTime.TryParse(OperationDate, out DateTime a);
         }
     }
 }

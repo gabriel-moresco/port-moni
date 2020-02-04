@@ -15,17 +15,23 @@ namespace PortMoni.VIEWMODEL
         bool _loginEnabled; public bool LoginEnabled { get { return _loginEnabled; } set { _loginEnabled = value; OnPropertyChanged(); } }
         string _userName; public string UserName { get { return _userName; } set { _userName = value.ToLowerInvariant(); OnPropertyChanged(); } }
 
-        public ICommand GoToRegisterWindowCommand => new DelegateCommand(GoToRegisterWindow);
+        public ICommand GoToRegisterViewCommand => new DelegateCommand(GoToRegisterView);
         public ICommand LoginCommand => new DelegateCommand(Login);
         public ICommand TextChangedCommand => new DelegateCommand(CheckIfLoginCanBeEnabled);
 
-        public LoginViewModel()
+        Action<string> GoToMainViewAction;
+        Action GoToRegisterViewAction;
+
+        public LoginViewModel(Action<string> goToMainViewAction, Action goToRegisterViewAction)
         {
+            GoToMainViewAction = goToMainViewAction;
+            GoToRegisterViewAction = goToRegisterViewAction;
+
             User cacheUser = GetCredentialsOnCache();
 
             if (cacheUser != null)
             {
-                GoToMainPage(cacheUser.UserName, cacheUser.Password);
+                GoToMainView(cacheUser.UserName);
             }
         }
 
@@ -46,7 +52,7 @@ namespace PortMoni.VIEWMODEL
                             SaveCredentialsOnCache(user);
                         }
 
-                        GoToMainPage(user.UserName, user.Password);
+                        GoToMainView(user.UserName);
                     }
                     else
                     {
@@ -96,9 +102,9 @@ namespace PortMoni.VIEWMODEL
             return Path.Combine(Path.GetTempPath(), "portmonicachecred.xml");
         }
 
-        void GoToMainPage(string userName, string password)
+        void GoToMainView(string userName)
         {
-            //TODO
+            GoToMainViewAction(userName);
         }
 
         User GetUser(string userName)
@@ -106,9 +112,9 @@ namespace PortMoni.VIEWMODEL
             return DataBaseUserServices.GetUserByUserName(userName);
         }
 
-        void GoToRegisterWindow(object parameter)
+        void GoToRegisterView(object parameter)
         {
-            //TODO
+            GoToRegisterViewAction();
         }
 
         void CheckIfLoginCanBeEnabled(object parameter)

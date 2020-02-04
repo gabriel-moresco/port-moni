@@ -28,7 +28,7 @@
                     <TextBox Margin="0 5 0 0" Text="{Binding OperationTaxes, StringFormat={}{0:C}, ConverterCulture='pt-BR', UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.ClearTextButton="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Center">
-                    <Button Margin="0 0 10 0" Width="135" Height="40" FontSize="18" Command="{Binding BackCommand}" Content="Voltar"/>
+                    <Button Margin="0 0 10 0" Width="135" Height="40" FontSize="18" Command="{Binding GoToMainViewCommand}" Content="Voltar"/>
                     <Button Margin="10 0 0 0" Width="135" Height="40" FontSize="18" Command="{Binding SaveNewInvestimentCommand}" Content="Cadastrar" Background="CornflowerBlue" FontWeight="Bold" IsDefault="True"/>
                 </StackPanel>
             </StackPanel>

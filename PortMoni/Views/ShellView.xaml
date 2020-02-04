@@ -6,8 +6,8 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:viewModels="clr-namespace:PortMoni.VIEWMODEL;assembly=PortMoni.VIEWMODEL"
         xmlns:views="clr-namespace:PortMoni.Views"
+        DataContext="{Binding ThisViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
         Title="Portfolio Monitoring" Height="768" Width="1280" WindowTransitionsEnabled="False" WindowTitleBrush="#121212" NonActiveWindowTitleBrush="#757575" Icon="../Images/logo.ico"
                       WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Window.Resources>
