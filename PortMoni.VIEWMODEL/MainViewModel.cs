@@ -17,6 +17,7 @@ namespace PortMoni.VIEWMODEL
         bool _quotationsLoaded;
 
         public string LoggedUserName { get; set; }
+        Wallet _userWallet; public Wallet UserWallet { get { return _userWallet; } set { _userWallet = value; OnPropertyChanged(); } }
         ObservableCollection<Share> _shareList; public ObservableCollection<Share> ShareList { get { return _shareList; } set { _shareList = value; OnPropertyChanged(); } }
         bool _progressRingIsVisible; public bool ProgressRingIsVisible { get { return _progressRingIsVisible; } set { _progressRingIsVisible = value; OnPropertyChanged(); } }
 
@@ -31,6 +32,11 @@ namespace PortMoni.VIEWMODEL
 
             ShareList = new ObservableCollection<Share>();
             LoggedUserName = userName;
+        }
+
+        public void SaveNewOperation(Operation operation)
+        {
+            UserWallet.Operations.Add(operation);
         }
 
         void GoToNewOperationView(object parameter)
@@ -48,6 +54,7 @@ namespace PortMoni.VIEWMODEL
             {
                 PopulateShareListFromTextFile();
                 UpdateShareListQuoteAndDescription();
+                UserWallet = DataBaseWalletServices.GetWalletByUserName(LoggedUserName);
                 _quotationsLoaded = true;
             }
 

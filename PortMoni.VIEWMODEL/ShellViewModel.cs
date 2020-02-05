@@ -10,7 +10,7 @@ namespace PortMoni.VIEWMODEL
         public MainViewModel MainViewModel { get; set; }
         public LoginViewModel LoginViewModel { get { return new LoginViewModel(GoToMainView, GoToRegisterView); } }
         public RegisterUserViewModel RegisterUserViewModel { get { return new RegisterUserViewModel(GoToLoginView, GoToMainView); } }
-        public NewOperationViewModel NewOperationViewModel { get { return new NewOperationViewModel(GoToMainView); } }
+        public NewOperationViewModel NewOperationViewModel { get { return new NewOperationViewModel(GoToMainView, MainViewModel.SaveNewOperation); } }
 
         public ShellViewModel()
         {

@@ -1,23 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using PortMoni.MVVM;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PortMoni.MODEL
 {
-    public class Wallet
+    public class Wallet : ObjectNotification
     {
+        [BsonId]
         public int Id { get; set; }
-        public List<Operation> Operations { get; set; }
-        public List<Asset> Assets { get; private set; }
+        public string WalletOwner { get; set; }
+        ObservableCollection<Operation> _operation; public ObservableCollection<Operation> Operations { get { return _operation; } set { _operation = value; OnPropertyChanged(); } }
+        public List<Asset> Assets { get; set; }
 
         public double TotalInvestment()
         {
             return Assets.Select(o => o.TotalValue).Sum();
         }
 
-        public Wallet()
+        public Wallet(int walletId, string walletOwner)
         {
-            Operations = new List<Operation>();
+            Operations = new ObservableCollection<Operation>();
             Assets = new List<Asset>();
+
+            Id = walletId;
+            WalletOwner = walletOwner;
         }
 
         void PopulateAssets()

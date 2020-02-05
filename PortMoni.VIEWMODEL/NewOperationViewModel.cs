@@ -1,4 +1,6 @@
-﻿using PortMoni.MVVM;
+﻿using PortMoni.MODEL;
+using PortMoni.MVVM;
+using PortMoni.UTIL;
 using System;
 using System.Windows.Input;
 
@@ -17,16 +19,22 @@ namespace PortMoni.VIEWMODEL
         public ICommand GoToMainViewCommand => new DelegateCommand(GoToMainView);
 
         Action<string> GoToMainViewAction;
+        Action<Operation> SaveNewOperationAction;
 
-        public NewOperationViewModel(Action<string> GoToMainViewAction)
+        public NewOperationViewModel(Action<string> GoToMainViewAction, Action<Operation> SaveNewOperationAction)
         {
             this.GoToMainViewAction = GoToMainViewAction;
+            this.SaveNewOperationAction = SaveNewOperationAction;
         }
 
         void SaveNewInvestment(object parameter)
         {
-            //TODO IMPLEMENTAR
-            //throw new NotImplementedException();
+            Constants.OperationType operationType = BuyOperationSelected ? Constants.OperationType.Buy : Constants.OperationType.Sell;
+
+            Operation operation = new Operation(ShareCode, operationType, OperationPrice, DateTime.Parse(OperationDate), OperationTaxes);
+
+            SaveNewOperationAction(operation);
+            GoToMainView(null);
         }
 
         void GoToMainView(object parameter)

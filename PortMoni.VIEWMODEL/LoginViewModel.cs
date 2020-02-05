@@ -31,12 +31,13 @@ namespace PortMoni.VIEWMODEL
 
             if (cacheUser != null)
             {
-                GoToMainView(cacheUser.UserName);
+                //GoToMainView(cacheUser.UserName);
             }
         }
 
         void Login(object parameter)
         {
+            //TODO IMPLEMENTAR ASYNC
             try
             {
                 string password = (parameter as PasswordBox).Password;

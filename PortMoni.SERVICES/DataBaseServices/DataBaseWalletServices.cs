@@ -1,11 +1,33 @@
-﻿namespace PortMoni.SERVICES
+﻿using PortMoni.MODEL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace PortMoni.SERVICES
 {
     public class DataBaseWalletServices
     {
-        public static int GetLasWalletId(string userName)
+        public static int GetLastWalletId()
         {
-            //TODO IMPLEMENTAR
-            return 0;
+            int lastId = 0;
+
+            try
+            {
+                lastId = DataBaseCommonServices.LoadAllRecords<Wallet>("wallets").OrderByDescending(o => o.Id).FirstOrDefault().Id;
+            }
+            catch (Exception) { }
+
+            return lastId;
+        }
+
+        public static void CreateNewWallet(int walletId, string walletOwner)
+        {
+            DataBaseCommonServices.InsertRecord("wallets", new Wallet(walletId, walletOwner));
+        }
+
+        public static Wallet GetWalletByUserName(string userName)
+        {
+            return DataBaseCommonServices.GetRecordByFilter<Wallet>("wallets", "WalletOwner", userName);
         }
     }
 }

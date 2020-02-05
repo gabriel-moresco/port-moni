@@ -48,6 +48,7 @@ namespace PortMoni.VIEWMODEL
 
         void CreateNewUser(object parameter)
         {
+            //TODO IMPLEMENTAR ASYNC
             try
             {
                 PasswordBox passwordBox = parameter as PasswordBox;
@@ -58,7 +59,11 @@ namespace PortMoni.VIEWMODEL
                     {
                         if (!CheckIfEmailExist(Email))
                         {
-                            User newUser = new User(FullName, Email, UserName, passwordBox.Password, DataBaseWalletServices.GetLasWalletId(UserName));
+                            int newWalletId = DataBaseWalletServices.GetLastWalletId() + 1;
+
+                            DataBaseWalletServices.CreateNewWallet(newWalletId, UserName);
+
+                            User newUser = new User(FullName, Email, UserName, passwordBox.Password, newWalletId);
 
                             DataBaseUserServices.InserNewUser(newUser);
 
