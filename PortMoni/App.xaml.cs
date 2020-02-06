@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using PortMoni.UTIL;
+using PortMoni.Views;
 
 namespace PortMoni
 {
@@ -10,7 +11,7 @@ namespace PortMoni
         {
             try
             {
-                new Views.ShellView().ShowDialog();
+                new ShellView().ShowDialog();
             }
             catch (Exception ex)
             {

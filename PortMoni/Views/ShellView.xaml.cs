@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using PortMoni.VIEWMODEL;
 
 namespace PortMoni.Views
 {
@@ -7,6 +8,9 @@ namespace PortMoni.Views
         public ShellView()
         {
             InitializeComponent();
+
+            (this.DataContext as ShellViewModel).OpenLoadingViewAction = Helper.OpenLoadingView;
+            (this.DataContext as ShellViewModel).CloseLoadingViewAction = Helper.CloseLoadingView;
         }
     }
 }

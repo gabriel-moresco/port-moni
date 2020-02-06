@@ -1,4 +1,6 @@
 ﻿using PortMoni.MVVM;
+using System;
+using System.Windows.Input;
 
 namespace PortMoni.VIEWMODEL
 {
@@ -12,9 +14,25 @@ namespace PortMoni.VIEWMODEL
         public RegisterUserViewModel RegisterUserViewModel { get { return new RegisterUserViewModel(GoToLoginView, GoToMainView); } }
         public NewOperationViewModel NewOperationViewModel { get { return new NewOperationViewModel(GoToMainView, MainViewModel.SaveNewOperation); } }
 
+        public ICommand ShowLoadingViewCommand => new DelegateCommand(ShowLoadingView);
+
+        public Action OpenLoadingViewAction;
+        public Action CloseLoadingViewAction;
+
         public ShellViewModel()
         {
             CurrentViewModel = LoginViewModel;
+        }
+
+        void ShowLoadingView(object parameter)
+        {
+            //TODO IMPLEMENTAR SPLASHSCREEN
+            //await Task.Run(() =>
+            //{
+            //    OpenLoadingViewAction();
+            //    Thread.Sleep(5000);
+            //    CloseLoadingViewAction();
+            //});
         }
 
         public void GoToMainView(string userName)
