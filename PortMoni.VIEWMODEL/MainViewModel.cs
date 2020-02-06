@@ -18,7 +18,6 @@ namespace PortMoni.VIEWMODEL
 
         public string LoggedUserName { get; set; }
         Wallet _userWallet; public Wallet UserWallet { get { return _userWallet; } set { _userWallet = value; OnPropertyChanged(); } }
-        ObservableCollection<Share> _shareList; public ObservableCollection<Share> ShareList { get { return _shareList; } set { _shareList = value; OnPropertyChanged(); } }
         bool _progressRingIsVisible; public bool ProgressRingIsVisible { get { return _progressRingIsVisible; } set { _progressRingIsVisible = value; OnPropertyChanged(); } }
 
         public ICommand LoadInfoCommand => new DelegateCommand(LoadInfo);
@@ -30,13 +29,14 @@ namespace PortMoni.VIEWMODEL
         {
             this.GoToNewOperationViewAction = GoToNewOperationViewAction;
 
-            ShareList = new ObservableCollection<Share>();
             LoggedUserName = userName;
         }
 
         public void SaveNewOperation(Operation operation)
         {
             UserWallet.Operations.Add(operation);
+            UpdateAssets();
+            DataBaseWalletServices.UpdateWallet(UserWallet);
         }
 
         void GoToNewOperationView(object parameter)
@@ -49,46 +49,33 @@ namespace PortMoni.VIEWMODEL
             //TODO INSERIR ASYNC
             //await Task.Run(() =>
             //{
-            //ProgressRingIsVisible = true;
+            ProgressRingIsVisible = true;
+
             if (!_quotationsLoaded)
             {
-                PopulateShareListFromTextFile();
-                UpdateShareListQuoteAndDescription();
                 UserWallet = DataBaseWalletServices.GetWalletByUserName(LoggedUserName);
+
+                if (UserWallet.Operations.Count > 0)
+                {
+                    UpdateAssets();
+                }
+
                 _quotationsLoaded = true;
             }
 
-            //ProgressRingIsVisible = false;
+            ProgressRingIsVisible = false;
             //});
         }
 
-        void PopulateShareListFromTextFile()
+        void UpdateAssets()
         {
-            string shareListString = string.Empty;
+            UserWallet.UpdateAssets();
 
-            using (StreamReader reader = new StreamReader(@"..\..\..\PortMoni.UTIL\shares.txt"))
-            {
-                shareListString = reader.ReadToEnd();
-            }
-
-            string[] shareListArray = shareListString.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string shareString in shareListArray)
-            {
-                ShareList.Add(new Share
-                {
-                    Code = shareString
-                });
-            }
-        }
-
-        void UpdateShareListQuoteAndDescription()
-        {
-            List<Papel> currentQuoteList = GetCurrentShareListInfo();
+            List<Papel> currentQuoteList = GetAssetsCurrentInfo();
 
             foreach (Papel papel in currentQuoteList)
             {
-                Share share = ShareList.FirstOrDefault(o => o.Code == papel.Codigo);
+                Share share = UserWallet.Assets.FirstOrDefault(o => o.ReferencedShare.Code == papel.Codigo).ReferencedShare;
 
                 if (share != null && double.TryParse(papel.Ultimo, out double currentQuote))
                 {
@@ -98,10 +85,18 @@ namespace PortMoni.VIEWMODEL
             }
         }
 
-        List<Papel> GetCurrentShareListInfo()
+        List<Papel> GetAssetsCurrentInfo()
         {
-            string xmlCurrentQuoteResponse = QuoteServices.GetShareListQuoteString(ShareList.ToList());
+            List<string> shareCodes = new List<string>();
+
+            foreach (Asset asset in UserWallet.Assets)
+            {
+                shareCodes.Add(asset.ReferencedShare.Code);
+            }
+
+            string xmlCurrentQuoteResponse = QuoteServices.GetShareListQuoteString(shareCodes);
             List<Papel> currentQuoteList = Util.DeserializeXml<List<Papel>>(xmlCurrentQuoteResponse, "ComportamentoPapeis");
+
             return currentQuoteList;
         }
     }

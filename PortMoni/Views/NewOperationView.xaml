@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Border CornerRadius="10" Background="#424242" Height="385" Width="350">
+        <Border CornerRadius="10" Background="#424242" Height="445" Width="350">
             <StackPanel>
                 <StackPanel Margin="30 20 30 10">
                     <TextBlock Text="TIPO DA OPERAÇÃO:" Foreground="LightGray" FontWeight="Bold"/>
@@ -20,6 +20,8 @@
                     </StackPanel>
                     <TextBlock Margin="0 15 0 0" Text="PRODUTO" Foreground="LightGray" FontWeight="Bold"/>
                     <TextBox Text="{Binding ShareCode, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 0" Controls:TextBoxHelper.ClearTextButton="True"/>
+                    <TextBlock Margin="0 15 0 0" Text="QUANTIDADE" Foreground="LightGray" FontWeight="Bold"/>
+                    <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Margin="0 5 0 0" Controls:TextBoxHelper.ClearTextButton="True"/>
                     <TextBlock Margin="0 15 0 0" Text="PREÇO" Foreground="LightGray" FontWeight="Bold"/>
                     <TextBox Margin="0 5 0 0" Text="{Binding OperationPrice, StringFormat={}{0:C}, ConverterCulture='pt-BR', UpdateSourceTrigger=PropertyChanged}" Controls:TextBoxHelper.ClearTextButton="True"/>
                     <TextBlock Margin="0 15 0 0" Text="DATA" Foreground="LightGray" FontWeight="Bold"/>

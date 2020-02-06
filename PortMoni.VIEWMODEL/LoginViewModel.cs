@@ -31,7 +31,7 @@ namespace PortMoni.VIEWMODEL
 
             if (cacheUser != null)
             {
-                //GoToMainView(cacheUser.UserName);
+                GoToMainView(cacheUser.UserName);
             }
         }
 

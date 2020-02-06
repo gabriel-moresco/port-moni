@@ -46,20 +46,20 @@
         <TabControl Grid.Row="1" Grid.Column="1">
             <TabItem Header="Produtos">
                 <ScrollViewer>
-                    <ItemsControl ItemsSource="{Binding ShareList}">
+                    <ItemsControl ItemsSource="{Binding UserWallet.Assets}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="90">
                                     <Grid Height="1" Background="LightGray" VerticalAlignment="Top" Margin="0 -1 0 0"/>
                                     <Border CornerRadius="2" Background="LightBlue" Width="4" Margin="10 15 0 15" HorizontalAlignment="Left"/>
-                                    <TextBlock Text="{Binding}" FontSize="16" Foreground="LightBlue" FontWeight="Bold" HorizontalAlignment="Left" Margin="18 10 0 0"/>
+                                    <TextBlock Text="{Binding ReferencedShare}" FontSize="16" Foreground="LightBlue" FontWeight="Bold" HorizontalAlignment="Left" Margin="18 10 0 0"/>
                                     <TextBlock Text="SALDO ATUAL" FontSize="10" Foreground="LightGray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="18 0 0 35"/>
-                                    <TextBlock Text="R$ 1.254,42" FontSize="16" Foreground="LightBlue" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="18 0 0 13"/>
+                                    <TextBlock Text="{Binding TotalValue, StringFormat={}{0:C}, ConverterCulture='pt-BR'}" FontSize="16" Foreground="LightBlue" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="18 0 0 13"/>
                                     <TextBlock Text="COTAÇÃO ATUAL" FontSize="10" Foreground="LightGray" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 35"/>
-                                    <TextBlock Text="{Binding CurrentQuote, StringFormat={}{0:C}, ConverterCulture='pt-BR'}" FontSize="16" Foreground="LightBlue"
+                                    <TextBlock Text="{Binding ReferencedShare.CurrentQuote, StringFormat={}{0:C}, ConverterCulture='pt-BR'}" FontSize="16" Foreground="LightBlue"
                                            HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 13"/>
                                     <TextBlock Text="RENTABILIDADE" FontSize="10" Foreground="LightGray" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 35"/>
-                                    <TextBlock Text="51,63%" FontSize="16" Foreground="LightBlue" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 13"/>
+                                    <TextBlock Text="{Binding Profitability, StringFormat={}{0}%}" FontSize="16" Foreground="LightBlue" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 13"/>
                                     <Grid Height="1" Background="LightGray" VerticalAlignment="Bottom"/>
                                 </Grid>
                             </DataTemplate>
@@ -67,7 +67,16 @@
                     </ItemsControl>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Carteira"/>
+            <TabItem Header="Carteira">
+                <StackPanel Margin="15">
+                    <TextBlock Text="SALDO DA CARTEIRA" FontSize="18" Foreground="LightGray" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding UserWallet.TotalToday, StringFormat={}{0:C}, ConverterCulture='pt-BR'}" Foreground="LightBlue" FontSize="28" FontWeight="Bold"/>
+                    <TextBlock Text="VALOR APLICADO" FontSize="18" Foreground="LightGray" HorizontalAlignment="Left" Margin="0 20 0 0"/>
+                    <TextBlock Text="{Binding UserWallet.TotalApplied, StringFormat={}{0:C}, ConverterCulture='pt-BR'}" Foreground="LightBlue" FontSize="28" FontWeight="Bold"/>
+                    <TextBlock Text="RENTABILIDADE TOTAL" FontSize="18" Foreground="LightGray" HorizontalAlignment="Left" Margin="0 20 0 0"/>
+                    <TextBlock Text="{Binding UserWallet.Profitability, StringFormat={}{0}%}" Foreground="LightBlue" FontSize="28" FontWeight="Bold"/>
+                </StackPanel>
+            </TabItem>
             <TabItem Header="Rentabilidade"/>
         </TabControl>
         <Grid Grid.Row="1" Grid.Column="1" Margin="0 40 0 0" Visibility="{Binding ProgressRingIsVisible, Converter={StaticResource boolToVis}, FallbackValue=Hidden}">

@@ -1,6 +1,5 @@
 ﻿using PortMoni.MODEL;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace PortMoni.SERVICES
@@ -28,6 +27,11 @@ namespace PortMoni.SERVICES
         public static Wallet GetWalletByUserName(string userName)
         {
             return DataBaseCommonServices.GetRecordByFilter<Wallet>("wallets", "WalletOwner", userName);
+        }
+
+        public static void UpdateWallet(Wallet userWallet)
+        {
+            DataBaseCommonServices.UpdateRecord("wallets", userWallet.Id, userWallet);
         }
     }
 }

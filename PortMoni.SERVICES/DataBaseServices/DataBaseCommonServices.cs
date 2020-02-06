@@ -25,5 +25,11 @@ namespace PortMoni.SERVICES
             FilterDefinition<T> filter = Builders<T>.Filter.Eq(fieldToFilter, filterValue);
             return collection.Find(filter).FirstOrDefault();
         }
+
+        internal static void UpdateRecord<T>(string tableName, dynamic id, T newRecord)
+        {
+            IMongoCollection<T> collection = DataBaseConnection.Instance.DataBase.GetCollection<T>(tableName);
+            collection.ReplaceOne(new BsonDocument("_id", id), newRecord, new ReplaceOptions { IsUpsert = true });
+        }
     }
 }
