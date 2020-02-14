@@ -36,7 +36,7 @@ namespace PortMoni.VIEWMODEL
         {
             UserWallet.Operations.Add(operation);
             UpdateAssets();
-            DataBaseWalletServices.UpdateWallet(UserWallet);
+            Task.Run(() => DataBaseWalletServices.UpdateWallet(UserWallet));
         }
 
         void GoToNewOperationView(object parameter)
@@ -53,7 +53,7 @@ namespace PortMoni.VIEWMODEL
 
             if (!_quotationsLoaded)
             {
-                UserWallet = DataBaseWalletServices.GetWalletByUserName(LoggedUserName);
+                UserWallet = DataBaseWalletServices.GetWalletByUserNameAsync(LoggedUserName);
 
                 if (UserWallet.Operations.Count > 0)
                 {

@@ -19,14 +19,14 @@ namespace PortMoni.SERVICES
             return lastId;
         }
 
-        public static void CreateNewWallet(int walletId, string walletOwner)
+        public static void CreateNewWalletAsync(int walletId, string walletOwner)
         {
-            DataBaseCommonServices.InsertRecord("wallets", new Wallet(walletId, walletOwner));
+            DataBaseCommonServices.InsertRecordAsync("wallets", new Wallet(walletId, walletOwner));
         }
 
-        public static Wallet GetWalletByUserName(string userName)
+        public static Wallet GetWalletByUserNameAsync(string userName)
         {
-            return DataBaseCommonServices.GetRecordByFilter<Wallet>("wallets", "WalletOwner", userName);
+            return DataBaseCommonServices.GetRecordByFilterAsync<Wallet>("wallets", "WalletOwner", userName).Result;
         }
 
         public static void UpdateWallet(Wallet userWallet)

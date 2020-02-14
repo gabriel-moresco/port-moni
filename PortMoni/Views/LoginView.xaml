@@ -10,6 +10,9 @@
              mc:Ignorable="d" 
              DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}"
              d:DesignWidth="1000" d:DesignHeight="1000" FocusManager.FocusedElement="{Binding ElementName=UserTextBox}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
     <Grid>
         <Border CornerRadius="10" Background="#424242" Height="550" Width="350">
             <StackPanel>
@@ -57,5 +60,9 @@
                 </StackPanel>
             </StackPanel>
         </Border>
+        <Grid Visibility="{Binding ProgressRingIsVisible, Converter={StaticResource BoolToVis}, FallbackValue=Hidden}">
+            <Grid Background="LightGray" Opacity="0.2"/>
+            <Controls:ProgressRing Width="150" Foreground="#313131"/>
+        </Grid>
     </Grid>
 </UserControl>

@@ -1,5 +1,6 @@
 ﻿using PortMoni.MODEL;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PortMoni.SERVICES
 {
@@ -10,19 +11,19 @@ namespace PortMoni.SERVICES
             return DataBaseCommonServices.LoadAllRecords<User>("users");
         }
 
-        public static User GetUserByUserName(string userName)
+        public static User GetUserByUserNameAsync(string userName)
         {
-            return DataBaseCommonServices.GetRecordByFilter<User>("users", "UserName", userName);
+            return DataBaseCommonServices.GetRecordByFilterAsync<User>("users", "UserName", userName).Result;
         }
 
-        public static User GetUserByEmail(string email)
+        public static User GetUserByEmailAsync(string email)
         {
-            return DataBaseCommonServices.GetRecordByFilter<User>("users", "Email", email);
+            return DataBaseCommonServices.GetRecordByFilterAsync<User>("users", "Email", email).Result;
         }
 
         public static void InserNewUser(User user)
         {
-            DataBaseCommonServices.InsertRecord("users", user);
+            DataBaseCommonServices.InsertRecordAsync("users", user);
         }
     }
 }

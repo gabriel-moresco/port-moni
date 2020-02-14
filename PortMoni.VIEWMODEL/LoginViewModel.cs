@@ -4,6 +4,7 @@ using PortMoni.SERVICES;
 using PortMoni.UTIL;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -13,6 +14,7 @@ namespace PortMoni.VIEWMODEL
     {
         bool _rememberInThisComputerChecked; public bool RememberInThisComputerChecked { get { return _rememberInThisComputerChecked; } set { _rememberInThisComputerChecked = value; OnPropertyChanged(); } }
         bool _loginEnabled; public bool LoginEnabled { get { return _loginEnabled; } set { _loginEnabled = value; OnPropertyChanged(); } }
+        bool _progressRingIsVisible; public bool ProgressRingIsVisible { get { return _progressRingIsVisible; } set { _progressRingIsVisible = value; OnPropertyChanged(); } }
         string _userName; public string UserName { get { return _userName; } set { _userName = value.ToLowerInvariant(); OnPropertyChanged(); } }
 
         public ICommand GoToRegisterViewCommand => new DelegateCommand(GoToRegisterView);
@@ -29,24 +31,42 @@ namespace PortMoni.VIEWMODEL
 
             User cacheUser = GetCredentialsOnCache();
 
-            if (cacheUser != null)
+            if (CheckUserCredentials(cacheUser.UserName, cacheUser.Password))
             {
                 GoToMainView(cacheUser.UserName);
             }
         }
 
-        void Login(object parameter)
+        bool CheckUserCredentials(string insertedUserName, string insertedPassword, User dataBaseUser = null)
         {
-            //TODO IMPLEMENTAR ASYNC
+            bool validUser = false;
+
+            if (dataBaseUser == null)
+            {
+                dataBaseUser = GetUser(insertedUserName);
+            }
+
+            if (dataBaseUser != null && dataBaseUser.Password == insertedPassword)
+            {
+                validUser = true;
+            }
+
+            return validUser;
+        }
+
+        async void Login(object parameter)
+        {
+            ProgressRingIsVisible = true;
+
             try
             {
-                string password = (parameter as PasswordBox).Password;
-
-                User user = GetUser(UserName);
-
-                if (user != null)
+                await Task.Run(() =>
                 {
-                    if (user.Password == password)
+                    string password = (parameter as PasswordBox).Password;
+
+                    User user = GetUser(UserName);
+
+                    if (CheckUserCredentials(UserName, password, user))
                     {
                         if (RememberInThisComputerChecked)
                         {
@@ -59,16 +79,14 @@ namespace PortMoni.VIEWMODEL
                     {
                         throw new Exception("Usuário ou senha incorretos.");
                     }
-                }
-                else
-                {
-                    throw new Exception("Usuário não existe.");
-                }
+                });
             }
             catch (Exception ex)
             {
                 MessageBoxCustom.Show("Ops!", "Erro ao logar:\n" + ex.Message, MessageBoxCustom.Images.Info, MessageBoxCustom.ButtonOptions.Ok);
             }
+
+            ProgressRingIsVisible = false;
         }
 
         User GetCredentialsOnCache()
@@ -110,7 +128,7 @@ namespace PortMoni.VIEWMODEL
 
         User GetUser(string userName)
         {
-            return DataBaseUserServices.GetUserByUserName(userName);
+            return DataBaseUserServices.GetUserByUserNameAsync(userName);
         }
 
         void GoToRegisterView(object parameter)

@@ -61,7 +61,7 @@ namespace PortMoni.VIEWMODEL
                         {
                             int newWalletId = DataBaseWalletServices.GetLastWalletId() + 1;
 
-                            DataBaseWalletServices.CreateNewWallet(newWalletId, UserName);
+                            DataBaseWalletServices.CreateNewWalletAsync(newWalletId, UserName);
 
                             User newUser = new User(FullName, Email, UserName, passwordBox.Password, newWalletId);
 
@@ -94,12 +94,12 @@ namespace PortMoni.VIEWMODEL
 
         bool CheckIfUserNameExist(string userName)
         {
-            return DataBaseUserServices.GetUserByUserName(userName) != null;
+            return DataBaseUserServices.GetUserByUserNameAsync(userName) != null;
         }
 
         bool CheckIfEmailExist(string email)
         {
-            return DataBaseUserServices.GetUserByEmail(email) != null;
+            return DataBaseUserServices.GetUserByEmailAsync(email) != null;
         }
 
         bool ValidPassword(string password)

@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using PortMoni.DATA;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PortMoni.SERVICES
 {
@@ -13,17 +14,17 @@ namespace PortMoni.SERVICES
             return collection.Find(new BsonDocument()).ToList();
         }
 
-        internal static void InsertRecord<T>(string table, T record)
+        internal static async void InsertRecordAsync<T>(string table, T record)
         {
             IMongoCollection<T> collection = DataBaseConnection.Instance.DataBase.GetCollection<T>(table);
-            collection.InsertOne(record);
+            await collection.InsertOneAsync(record);
         }
 
-        internal static T GetRecordByFilter<T>(string table, string fieldToFilter, string filterValue)
+        internal static async Task<T> GetRecordByFilterAsync<T>(string table, string fieldToFilter, string filterValue)
         {
             IMongoCollection<T> collection = DataBaseConnection.Instance.DataBase.GetCollection<T>(table);
             FilterDefinition<T> filter = Builders<T>.Filter.Eq(fieldToFilter, filterValue);
-            return collection.Find(filter).FirstOrDefault();
+            return await collection.FindAsync(filter).Result.FirstOrDefaultAsync();
         }
 
         internal static void UpdateRecord<T>(string tableName, dynamic id, T newRecord)
